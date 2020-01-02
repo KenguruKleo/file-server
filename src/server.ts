@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import errorHandler from "errorhandler";
+import * as http from "http";
 
 dotenv.config();
 const app = require('./app').default;
@@ -8,6 +9,8 @@ const app = require('./app').default;
  * Error Handler. Provides full stack - remove for production
  */
 app.use(errorHandler());
+
+http.globalAgent.maxSockets = 50;
 
 /**
  * Start Express server.

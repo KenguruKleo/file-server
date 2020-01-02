@@ -13,6 +13,7 @@ const FILE_SERVER_API_KEY = process.env.FILE_SERVER_API_KEY || uuid();
 app.set("FILE_SERVER_API_KEY", FILE_SERVER_API_KEY);
 
 app.use(
+	'/data',
 	express.static(path.resolve(__dirname, "..", "data"), { maxAge: 31557600000 })
 );
 
