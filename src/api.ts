@@ -70,13 +70,13 @@ const API = (app: Application) => {
 				else if (err) {
 					return res.send(err);
 				}
-				// const uploadedNames = [];
-				// for (let index = 0, len = req.files.length; index < len; ++index) {
-				// 	uploadedNames.push(req.files[index].filename);
-				// }
 
 				// @ts-ignore
 				const uploadedNames = req.files.map(file => file.filename);
+
+				// @ts-ignore
+				req.files.forEach(file => console.log(file.path));
+
 				// Display uploaded image for user validation
 				res.send(uploadedNames);
 			});
