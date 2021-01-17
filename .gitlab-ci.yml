@@ -9,7 +9,6 @@ variables:
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
   DEPLOYMENT_FILE: deployment.yaml
-  IMAGE_NAME: file-server
 
 build-image:
   stage: build
@@ -20,8 +19,8 @@ build-image:
   services:
     - docker:19-dind
   variables:
-    CONTAINER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_NAME}-${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}
-    CONTAINER_IMAGE_LATEST: ${CI_REGISTRY}/${CI_PROJECT_NAME}-${IMAGE_NAME}:latest
+    CONTAINER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_SHORT_SHA}
+    CONTAINER_IMAGE_LATEST: ${CI_REGISTRY}/${CI_PROJECT_NAME}:latest
   script:
     - docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} https://${CI_REGISTRY}
     - docker build -t ${CONTAINER_IMAGE} .
