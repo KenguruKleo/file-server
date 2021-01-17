@@ -1,0 +1,32 @@
+default:
+  image: node:12-alpine
+
+stages:
+  - build
+
+variables:
+  DOCKER_HOST: tcp://localhost:2375
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+  DEPLOYMENT_FILE: deployment.yaml
+  IMAGE_NAME: file-server
+
+build-image:
+  stage: build
+  only:
+    - develop
+    - master
+  image: docker:19-git
+  services:
+    - docker:19-dind
+  variables:
+    CONTAINER_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_NAME}-${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}
+    CONTAINER_IMAGE_LATEST: ${CI_REGISTRY}/${CI_PROJECT_NAME}-${IMAGE_NAME}:latest
+  script:
+    - cd ./web-client
+    - docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} https://${CI_REGISTRY}
+    - docker build -t ${CONTAINER_IMAGE} .
+    - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}
+    - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE_LATEST}
+    - docker push ${CONTAINER_IMAGE}
+    - docker push ${CONTAINER_IMAGE_LATEST}
