@@ -7,7 +7,7 @@ import API from "./api";
 const app: Application = express();
 
 // Express configuration
-app.set("port", process.env.PORT || 8010);
+app.set("port", process.env.PORT || 8080);
 const FILE_SERVER_API_KEY = process.env.FILE_SERVER_API_KEY || uuid();
 app.set("FILE_SERVER_API_KEY", FILE_SERVER_API_KEY);
 const DATA_FOLDER = path.resolve(__dirname, "..", "data");
