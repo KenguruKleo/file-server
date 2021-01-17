@@ -1,8 +1,7 @@
 import express, {NextFunction, Request, Response, Application} from "express";
 import path from "path";
-import { v1 as uuid } from 'uuid';
-
-import API from './api';
+import { v1 as uuid } from "uuid";
+import API from "./api";
 
 // Create Express server
 const app: Application = express();

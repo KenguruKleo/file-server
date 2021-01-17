@@ -30,12 +30,13 @@ const API = (app: Application) => {
 	router.post(
 		'/file',
 		(req, res) => {
-			let upload = multer(
+			const upload = multer(
 				{
-					storage: storage,
+					storage,
 					limits,
 				}).single('data');
 
+			// @ts-ignore
 			upload(req, res, err => {
 				// req.file contains information of uploaded file
 				// req.body contains information of text fields, if there were any
@@ -55,12 +56,13 @@ const API = (app: Application) => {
 	router.post(
 		'/files',
 		(req, res) => {
-			let upload = multer(
+			const upload = multer(
 				{
-					storage: storage,
+					storage,
 					limits,
 				}).array('data', limits.files);
 
+			// @ts-ignore
 			upload(req, res, err => {
 				// req.file contains information of uploaded file
 				// req.body contains information of text fields, if there were any

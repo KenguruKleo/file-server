@@ -1,8 +1,9 @@
 import dotenv from 'dotenv'
 import errorHandler from "errorhandler";
-import * as http from "http";
+import { globalAgent } from "http";
 
 dotenv.config();
+// eslint-disable-next-line import/no-commonjs
 const app = require('./app').default;
 
 /**
@@ -10,7 +11,7 @@ const app = require('./app').default;
  */
 app.use(errorHandler());
 
-http.globalAgent.maxSockets = 50;
+globalAgent.maxSockets = 50;
 
 /**
  * Start Express server.
