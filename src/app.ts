@@ -21,10 +21,10 @@ app.use(
 app.get('/ping', (req, res) => res.send('pong'));
 
 const check_FILE_SERVER_API_KEY = (req: Request, res: Response, next: NextFunction) => {
-	if (req.header('FILE_SERVER_API_KEY') !== FILE_SERVER_API_KEY) {
-		console.error("received:", req.header('FILE_SERVER_API_KEY'));
+	if (req.header('X-FILE-SERVER-API-KEY') !== FILE_SERVER_API_KEY) {
+		console.error("received:", req.header('X-FILE-SERVER-API-KEY'));
 		console.error("require:", FILE_SERVER_API_KEY);
-		res.status(401).send('Server requires valid FILE_SERVER_API_KEY');
+		res.status(401).send('Server requires valid X-FILE-SERVER-API-KEY');
 		return;
 	}
 	next();
